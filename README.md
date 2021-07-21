@@ -1,1 +1,3 @@
 # swiftprojects
+
+SUPER SIMPLE PROJECTS TO STUDY SWIFT and SWIFTUI and STORYBOARD and XCODE and .... so... on...
