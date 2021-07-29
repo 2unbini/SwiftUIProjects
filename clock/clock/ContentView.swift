@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
 
@@ -167,6 +168,8 @@ struct TimerView: View {
     @State var hoursIndex = 0
     @State var minutesIndex = 0
     @State var secondsIndex = 0
+    @State var soundId = 0
+    let soundIdArr = [1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034, 1035, 1036]
     
     var body: some View {
         VStack {
@@ -175,51 +178,69 @@ struct TimerView: View {
                 Text(timeNow).font(.custom("Verdana", size: 70)).frame(height: 200)
             } else {
                 //SelectTimeView()
-                ZStack {
-                    RoundedRectangle(cornerRadius: 5).frame(width: UIScreen.main.bounds.size.width-130, height: 32).foregroundColor(.gray)
-                    HStack(spacing: 0) {
-                        Spacer()
-                        
-                        Picker("", selection: self.$hoursIndex) {
-                            ForEach(0..<24, id: \.self) {
-                                Text(String($0)).fontWeight(.bold).tag($0)
+                VStack {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5).frame(width: UIScreen.main.bounds.size.width-110, height: 32).foregroundColor(.black).opacity(0.5)
+                        HStack(spacing: 0) {
+                            Spacer()
+                            
+                            Picker("", selection: self.$hoursIndex) {
+                                ForEach(0..<24, id: \.self) {
+                                    Text(String($0)).fontWeight(.bold).tag($0)
+                                }
                             }
-                        }
-                        .labelsHidden()
-                        .fixedSize(horizontal: true, vertical: true)
-                        .frame(width: 40, height: 160)
-                        .clipped()
-                        Text("시간").fontWeight(.semibold).padding(.trailing, 13)
-                        
-                        Picker("", selection: self.$minutesIndex) {
-                            ForEach(0..<60, id: \.self) {
-                                Text(String($0)).fontWeight(.bold).tag($0)
+                            .labelsHidden()
+                            .fixedSize(horizontal: true, vertical: true)
+                            .frame(width: 40, height: 160)
+                            .clipped()
+                            Text("시간").fontWeight(.semibold).padding([.trailing, .leading], 8)
+                            
+                            Picker("", selection: self.$minutesIndex) {
+                                ForEach(0..<60, id: \.self) {
+                                    Text(String($0)).fontWeight(.bold).tag($0)
+                                }
                             }
-                        }
-                        .labelsHidden()
-                        .fixedSize(horizontal: true, vertical: true)
-                        .frame(width: 40, height: 160)
-                        .clipped()
-                        Text("분").fontWeight(.semibold).padding(.trailing, 23)
-                        
-                        Picker("", selection: self.$secondsIndex) {
-                            ForEach(0..<60, id: \.self) {
-                                Text(String($0)).fontWeight(.bold).tag($0)
+                            .labelsHidden()
+                            .fixedSize(horizontal: true, vertical: true)
+                            .frame(width: 40, height: 160)
+                            .clipped()
+                            Text("분").fontWeight(.semibold).padding([.trailing, .leading], 10)
+                            
+                            Picker("", selection: self.$secondsIndex) {
+                                ForEach(0..<60, id: \.self) {
+                                    Text(String($0)).fontWeight(.bold).tag($0)
+                                }
                             }
+                            .labelsHidden()
+                            .fixedSize(horizontal: true, vertical: true)
+                            .frame(width: 40, height: 160)
+                            .clipped()
+                            Text("초").fontWeight(.semibold).padding([.trailing, .leading], 7)
+                            
+                            Spacer()
                         }
-                        .labelsHidden()
-                        .fixedSize(horizontal: true, vertical: true)
-                        .frame(width: 40, height: 160)
-                        .clipped()
-                        Text("초").fontWeight(.semibold).padding(.trailing, 10)
+                        .frame(height: 200)
+                        .mask(Rectangle())
                         
-                        Spacer()
                     }
-                    .frame(height: 200)
-                    .mask(Rectangle())
                 }
-            }
-            Spacer()
+                
+                Text("타이머 종료 시").font(.custom("AppleSDGothicNeo", size: 20)).padding(.top, 40)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 5).frame(width: 140, height: 32).foregroundColor(.gray).opacity(0.3)
+                    Picker("", selection: self.$soundId) {
+                        ForEach(0..<17) {
+                            Text("소리 \($0)")
+                                .font(.custom("AppleSDGothicNeo", size: 18)).tag($0)
+                        }
+                    }
+                    .labelsHidden()
+                    .fixedSize(horizontal: true, vertical: true)
+                    .frame(width: 140, height: 40)
+                    .clipped()
+                }
+                Spacer()
+                }
             HStack {
                 Spacer()
                 Button(action: {
@@ -238,8 +259,10 @@ struct TimerView: View {
             Spacer()
         }
         .alert(isPresented: $timerEnds) {
-            Alert(title: Text("타이머 종료"),
+            let alert = Alert(title: Text("타이머 종료"),
                   dismissButton: .default(Text("끄기")))
+            AudioServicesPlayAlertSound(SystemSoundID(soundIdArr[soundId]))
+            return alert
         }
     }
     
