@@ -15,7 +15,7 @@ struct MainToDoView: View {
             Spacer()
             Text("What to do Today,  " + username! + "?")
                 .font(.title2)
-                .frame(width: 500, height: 80, alignment: .center)
+                .frame(width: 500, height: 100, alignment: .center)
             TextFieldView()
             Spacer()
             Spacer()

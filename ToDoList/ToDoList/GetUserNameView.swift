@@ -21,16 +21,21 @@ struct GetUserNameView: View {
             Spacer()
             TextField("write username", text: $name)
             Spacer()
-            Button(action: {
-                username = name
-                UserDefaults.standard.set(self.username, forKey: "name")
-            }, label: {
-                Image(systemName: "chevron.right.square")
-            })
+            Button(action: { setNameAndReload() }, label: { Image(systemName: "chevron.right.square") })
             Spacer()
         }
         .frame(width: 300, height: 100, alignment: .center)
         Spacer()
+    }
+    
+    func setNameAndReload() {
+        username = name
+        UserDefaults.standard.set(self.username, forKey: "name")
+        
+        if let window = UIApplication.shared.windows.first {
+            window.rootViewController = UIHostingController(rootView: ContentView())
+            window.makeKeyAndVisible()
+        }
     }
 }
 

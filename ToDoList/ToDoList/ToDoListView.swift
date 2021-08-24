@@ -15,13 +15,11 @@ struct ToDoListView: View {
         List {
             ForEach(0..<toDoList.list.count, id: \.self) { i in
                 HStack {
-                    
                     Button(action: { checkBtnAction(i) }, label: {
                         Image(systemName: toDoList.list[i].checked == true
                                 ? sys.names[sys.checked]
                                 : sys.names[sys.notChecked])
                     })
-                    .frame(width: 30, height: 30, alignment: .leading)
                     .buttonStyle(BorderlessButtonStyle())
                     
                     Text(toDoList.list[i].toDo)
@@ -30,7 +28,6 @@ struct ToDoListView: View {
                     Button(action: { deleteList(i) }, label: {
                         Image(systemName: sys.names[sys.delete])
                     })
-                    .frame(width: 30, height: 30, alignment: .bottom)
                     .buttonStyle(BorderlessButtonStyle())
                 }
             }

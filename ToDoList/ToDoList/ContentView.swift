@@ -17,7 +17,6 @@ struct ContentView: View {
     
     var body: some View {
         if username == nil {
-            // username 받고 버튼 누르고 reload 돼야 됨!!
             GetUserNameView()
         }
         else {
