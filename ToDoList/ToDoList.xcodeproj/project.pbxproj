@@ -15,6 +15,8 @@
 		A8FA2CC226D4DC5C00D6C7C0 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA2CC126D4DC5C00D6C7C0 /* ToDoListView.swift */; };
 		A8FA2CC426D4DCD400D6C7C0 /* SaveLoadButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA2CC326D4DCD400D6C7C0 /* SaveLoadButtonView.swift */; };
 		A8FA2CC626D4DD2900D6C7C0 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA2CC526D4DD2900D6C7C0 /* TextFieldView.swift */; };
+		A8FA2CC826D4E9E100D6C7C0 /* GetUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA2CC726D4E9E100D6C7C0 /* GetUserNameView.swift */; };
+		A8FA2CCA26D4EDB900D6C7C0 /* MainToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8FA2CC926D4EDB900D6C7C0 /* MainToDoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		A8FA2CC126D4DC5C00D6C7C0 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
 		A8FA2CC326D4DCD400D6C7C0 /* SaveLoadButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveLoadButtonView.swift; sourceTree = "<group>"; };
 		A8FA2CC526D4DD2900D6C7C0 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		A8FA2CC726D4E9E100D6C7C0 /* GetUserNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserNameView.swift; sourceTree = "<group>"; };
+		A8FA2CC926D4EDB900D6C7C0 /* MainToDoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainToDoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +73,8 @@
 				A8FA2CC126D4DC5C00D6C7C0 /* ToDoListView.swift */,
 				A8FA2CC326D4DCD400D6C7C0 /* SaveLoadButtonView.swift */,
 				A8FA2CC526D4DD2900D6C7C0 /* TextFieldView.swift */,
+				A8FA2CC726D4E9E100D6C7C0 /* GetUserNameView.swift */,
+				A8FA2CC926D4EDB900D6C7C0 /* MainToDoView.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -151,7 +157,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8657B5B26D3E28C001BD8D0 /* ContentView.swift in Sources */,
+				A8FA2CC826D4E9E100D6C7C0 /* GetUserNameView.swift in Sources */,
 				A8FA2CC026D4DC0700D6C7C0 /* ToDo.swift in Sources */,
+				A8FA2CCA26D4EDB900D6C7C0 /* MainToDoView.swift in Sources */,
 				A8FA2CC626D4DD2900D6C7C0 /* TextFieldView.swift in Sources */,
 				A8FA2CC226D4DC5C00D6C7C0 /* ToDoListView.swift in Sources */,
 				A8657B5926D3E28C001BD8D0 /* ToDoListApp.swift in Sources */,

@@ -13,18 +13,15 @@ class ToDoLists: ObservableObject {
 
 struct ContentView: View {
     @StateObject var toDoList = ToDoLists()
+    @State var username = UserDefaults.standard.string(forKey: "name")
     
     var body: some View {
-        VStack {
-            Spacer()
-            Text("What to do Today?")
-                .font(.title.bold())
-                .frame(width: 500, height: 80, alignment: .center)
-            TextFieldView().environmentObject(toDoList)
-            Spacer()
-            Spacer()
-            ToDoListView().environmentObject(toDoList)
-            SaveLoadButtonView().environmentObject(toDoList)
+        if username == nil {
+            // username 받고 버튼 누르고 reload 돼야 됨!!
+            GetUserNameView()
+        }
+        else {
+            MainToDoView().environmentObject(toDoList)
         }
     }
 }
