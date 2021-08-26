@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UserNameFieldView: View {
+    
     @Binding var hasUsername: Bool
     @State private var name = ""
     @State private var username = UserDefaults.standard.string(forKey: "name")

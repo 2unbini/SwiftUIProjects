@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var toDoList: ToDoLists
+    
     @State var username = UserDefaults.standard.string(forKey: "name")
     
     var body: some View {

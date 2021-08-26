@@ -8,19 +8,13 @@
 import SwiftUI
 import CoreData
 
-class ToDoLists: ObservableObject {
-    @Published var list = [ToDo]()
-}
-
 @main
 struct ToDoListApp: App {
     let container = PersistenceController.shared.container
-    @StateObject var toDoList = ToDoLists()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(toDoList)
                 .environment(\.managedObjectContext, container.viewContext)
         }
     }

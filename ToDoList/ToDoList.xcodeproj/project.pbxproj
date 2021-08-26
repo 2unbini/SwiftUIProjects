@@ -12,7 +12,6 @@
 		A808B94E26D7444000D9E966 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94726D7444000D9E966 /* ContentView.swift */; };
 		A808B94F26D7444000D9E966 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94826D7444000D9E966 /* ToDoListView.swift */; };
 		A808B95026D7444000D9E966 /* MainToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94926D7444000D9E966 /* MainToDoView.swift */; };
-		A808B95126D7444000D9E966 /* SaveLoadButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94A26D7444000D9E966 /* SaveLoadButtonView.swift */; };
 		A808B95226D7444000D9E966 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94B26D7444000D9E966 /* ToDo.swift */; };
 		A808B95526D7455700D9E966 /* UserNameFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B95426D7455700D9E966 /* UserNameFieldView.swift */; };
 		A808B95926D7633700D9E966 /* Task.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A808B95726D7633700D9E966 /* Task.xcdatamodeld */; };
@@ -41,7 +40,6 @@
 		A808B94726D7444000D9E966 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A808B94826D7444000D9E966 /* ToDoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
 		A808B94926D7444000D9E966 /* MainToDoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainToDoView.swift; sourceTree = "<group>"; };
-		A808B94A26D7444000D9E966 /* SaveLoadButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveLoadButtonView.swift; sourceTree = "<group>"; };
 		A808B94B26D7444000D9E966 /* ToDo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		A808B95426D7455700D9E966 /* UserNameFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFieldView.swift; sourceTree = "<group>"; };
 		A808B95826D7633700D9E966 /* Task.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Task.xcdatamodel; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 				A808B94726D7444000D9E966 /* ContentView.swift */,
 				A808B94626D7443F00D9E966 /* GetUserNameView.swift */,
 				A808B94926D7444000D9E966 /* MainToDoView.swift */,
-				A808B94A26D7444000D9E966 /* SaveLoadButtonView.swift */,
 				A808B94526D7443F00D9E966 /* TextFieldView.swift */,
 				A808B94826D7444000D9E966 /* ToDoListView.swift */,
 				A808B95426D7455700D9E966 /* UserNameFieldView.swift */,
@@ -196,7 +193,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A808B95B26D763BC00D9E966 /* PersistantContainer.swift in Sources */,
-				A808B95126D7444000D9E966 /* SaveLoadButtonView.swift in Sources */,
 				A808B94C26D7444000D9E966 /* TextFieldView.swift in Sources */,
 				A808B95026D7444000D9E966 /* MainToDoView.swift in Sources */,
 				A808B95226D7444000D9E966 /* ToDo.swift in Sources */,

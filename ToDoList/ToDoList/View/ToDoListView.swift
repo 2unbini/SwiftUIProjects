@@ -9,8 +9,8 @@ import SwiftUI
 import CoreData
 
 struct ToDoListView: View {
+    
     let sys = GetSysName()
-    //@EnvironmentObject var toDoList: ToDoLists
     
     @Environment(\.managedObjectContext) var context
     
@@ -42,29 +42,6 @@ struct ToDoListView: View {
             Text(results.isEmpty ? "No Todo found" : "")
             
         )
-        
-        /*
-        List {
-            ForEach(0..<toDoList.list.count, id: \.self) { i in
-                HStack {
-                    Button(action: { checkBtnAction(i) }, label: {
-                        Image(systemName: toDoList.list[i].checked == true
-                                ? sys.names[sys.checked]
-                                : sys.names[sys.notChecked])
-                    })
-                    .buttonStyle(BorderlessButtonStyle())
-                    
-                    Text(toDoList.list[i].toDo)
-                    Spacer()
-                    
-                    Button(action: { deleteList(i) }, label: {
-                        Image(systemName: sys.names[sys.delete])
-                    })
-                    .buttonStyle(BorderlessButtonStyle())
-                }
-            }
-        }
-         */
     }
     
     struct GetSysName {
@@ -95,16 +72,6 @@ struct ToDoListView: View {
             print(error.localizedDescription)
         }
     }
-    
-    /*
-    func checkBtnAction(_ i: Int) {
-        toDoList.list[i].checked.toggle()
-    }
-    
-    func deleteList(_ i: Int) {
-        toDoList.list.remove(at: i)
-    }
-    */
     
 }
 
