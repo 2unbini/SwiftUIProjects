@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MainToDoView: View {
-    @EnvironmentObject var ToDoList: ToDoLists
     @State var username = UserDefaults.standard.string(forKey: "name")
     
     var body: some View {

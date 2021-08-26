@@ -9,71 +9,47 @@ import SwiftUI
 
 struct SaveLoadButtonView: View {
     @EnvironmentObject var toDoList: ToDoLists
-    @State var saveLoadPath = UserDefaults.standard.url(forKey: "path")
     
     var body: some View {
         HStack {
             Spacer()
             Button(action: { saveData() }, label: { Text("save") })
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(BorderlessButtonStyle())
             
             Spacer()
             
             Button(action: { loadData() }, label: { Text("load") })
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(BorderlessButtonStyle())
             Spacer()
         }
     }
     
     func saveData() {
+        let path = getDocumentDirectory().appendingPathComponent("todolist.json")
         let jsonString = saveToJsonFile()
-        let path = getDocumentDirectory()
-        let resourcePath = Bundle.main.url(forResource: "todolist", withExtension: "json")
-    
-        if path == nil || resourcePath == nil {
-            print("invalid path - save Data")
-            return
-        }
         
-        UserDefaults.standard.set(path, forKey: "path")
-        print("ios save path")
-        print(path)
-        print(resourcePath)
-        print("------")
+        print(path.absoluteString)
         
         do {
-            try jsonString.write(to: path!, atomically: true, encoding: .utf8)
-            try jsonString.write(to: resourcePath!, atomically: true, encoding: .utf8)
+            try jsonString.write(to: path, atomically: true, encoding: .utf8)
         } catch {
             print(error.localizedDescription)
         }
     }
     
     func loadData() {
-        let path = getDocumentDirectory()
-
-        if path == nil {
-            print("invalid path - load Data")
-            return
-        }
-        
-        UserDefaults.standard.set(path, forKey: "path")
-        print("ios load path")
-        print(path)
-        print("------")
+        let path = getDocumentDirectory().appendingPathComponent("todolist.json")
         
         do {
-            let jsonString = try String(contentsOf: path!)
+            let jsonString = try String(contentsOf: path)
             toDoList.list = parseToArray(jsonString)
         } catch {
             print(error.localizedDescription)
         }
     }
-
-    func getDocumentDirectory() -> URL? {
-        return FileManager.default
-            .urls(for: .documentDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("todolist.json")
+    
+    func getDocumentDirectory() -> URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
     
     func saveToJsonFile() -> String {

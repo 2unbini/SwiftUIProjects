@@ -15,21 +15,20 @@ struct ToDoListView: View {
         List {
             ForEach(0..<toDoList.list.count, id: \.self) { i in
                 HStack {
-                    HStack {
-                        Button(action: { checkBtnAction(i) }, label: {
-                            Image(systemName: toDoList.list[i].checked == true
-                                    ? sys.names[sys.checked]
-                                    : sys.names[sys.notChecked])
-                        })
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        Text(toDoList.list[i].toDo)
-                        Spacer()
-                    }
+                    Button(action: { checkBtnAction(i) }, label: {
+                        Image(systemName: toDoList.list[i].checked == true
+                                ? sys.names[sys.checked]
+                                : sys.names[sys.notChecked])
+                    })
+                    .buttonStyle(BorderlessButtonStyle())
+                    
+                    Text(toDoList.list[i].toDo)
+                    Spacer()
+                    
                     Button(action: { deleteList(i) }, label: {
                         Image(systemName: sys.names[sys.delete])
                     })
-                    .buttonStyle(PlainButtonStyle())
+                    .buttonStyle(BorderlessButtonStyle())
                 }
             }
         }
