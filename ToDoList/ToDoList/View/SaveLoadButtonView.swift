@@ -58,6 +58,7 @@ struct SaveLoadButtonView: View {
         let jsonData: Data = try! encoder.encode(toDoList.list)
         
         if let jsonString: String = String(data: jsonData, encoding: .utf8) {
+            print(jsonString)
             return jsonString
         }
         
