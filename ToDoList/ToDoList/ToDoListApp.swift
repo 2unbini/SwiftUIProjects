@@ -10,11 +10,14 @@ import SwiftUI
 @main
 struct ToDoListApp: App {
     
-    //@StateObject var toDoList = ToDoLists()
+    @StateObject var appToDo = AppToDo()
+    @StateObject var sharedToDo = ShareToDo()
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(appToDo)
+                .environmentObject(sharedToDo)
         }
     }
 }

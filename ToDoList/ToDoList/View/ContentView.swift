@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     @State var hasUsername = false
     @State var username = UserDefaults.standard.string(forKey: "name")
     
@@ -19,10 +20,10 @@ struct ContentView: View {
             MainToDoView()
         }
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
+      
     static var previews: some View {
         ContentView()
     }
