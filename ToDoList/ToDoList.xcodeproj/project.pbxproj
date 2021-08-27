@@ -8,11 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		A808B94C26D7444000D9E966 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94526D7443F00D9E966 /* TextFieldView.swift */; };
-		A808B94D26D7444000D9E966 /* GetUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94626D7443F00D9E966 /* GetUserNameView.swift */; };
 		A808B94E26D7444000D9E966 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94726D7444000D9E966 /* ContentView.swift */; };
 		A808B94F26D7444000D9E966 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94826D7444000D9E966 /* ToDoListView.swift */; };
 		A808B95026D7444000D9E966 /* MainToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94926D7444000D9E966 /* MainToDoView.swift */; };
-		A808B95126D7444000D9E966 /* SaveLoadButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94A26D7444000D9E966 /* SaveLoadButtonView.swift */; };
 		A808B95226D7444000D9E966 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94B26D7444000D9E966 /* ToDo.swift */; };
 		A808B95526D7455700D9E966 /* UserNameFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B95426D7455700D9E966 /* UserNameFieldView.swift */; };
 		A8657B5926D3E28C001BD8D0 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8657B5826D3E28C001BD8D0 /* ToDoListApp.swift */; };
@@ -35,11 +33,9 @@
 
 /* Begin PBXFileReference section */
 		A808B94526D7443F00D9E966 /* TextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
-		A808B94626D7443F00D9E966 /* GetUserNameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetUserNameView.swift; sourceTree = "<group>"; };
 		A808B94726D7444000D9E966 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A808B94826D7444000D9E966 /* ToDoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
 		A808B94926D7444000D9E966 /* MainToDoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainToDoView.swift; sourceTree = "<group>"; };
-		A808B94A26D7444000D9E966 /* SaveLoadButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveLoadButtonView.swift; sourceTree = "<group>"; };
 		A808B94B26D7444000D9E966 /* ToDo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
 		A808B95426D7455700D9E966 /* UserNameFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFieldView.swift; sourceTree = "<group>"; };
 		A8657B5526D3E28C001BD8D0 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,9 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				A808B94726D7444000D9E966 /* ContentView.swift */,
-				A808B94626D7443F00D9E966 /* GetUserNameView.swift */,
 				A808B94926D7444000D9E966 /* MainToDoView.swift */,
-				A808B94A26D7444000D9E966 /* SaveLoadButtonView.swift */,
 				A808B94526D7443F00D9E966 /* TextFieldView.swift */,
 				A808B94826D7444000D9E966 /* ToDoListView.swift */,
 				A808B95426D7455700D9E966 /* UserNameFieldView.swift */,
@@ -181,14 +175,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A808B95126D7444000D9E966 /* SaveLoadButtonView.swift in Sources */,
 				A808B94C26D7444000D9E966 /* TextFieldView.swift in Sources */,
 				A808B95026D7444000D9E966 /* MainToDoView.swift in Sources */,
 				A808B95226D7444000D9E966 /* ToDo.swift in Sources */,
 				A8657B5926D3E28C001BD8D0 /* ToDoListApp.swift in Sources */,
 				A808B95526D7455700D9E966 /* UserNameFieldView.swift in Sources */,
 				A808B94E26D7444000D9E966 /* ContentView.swift in Sources */,
-				A808B94D26D7444000D9E966 /* GetUserNameView.swift in Sources */,
 				A808B94F26D7444000D9E966 /* ToDoListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

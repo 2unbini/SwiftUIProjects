@@ -7,8 +7,16 @@
 
 import Foundation
 
-struct ToDo : Identifiable, Codable {
-    var id = UUID()
-    var toDo: String
+struct ToDo : Codable, Identifiable {
+    var id: Int
+    var title: String
+    var category: String
+    var targetFrom: String
+    var targetTo: String
     var checked: Bool
+}
+
+struct SendToDo: Codable {
+    var checked: Bool
+    var title: String
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainToDoView: View {
+    
     @State var username = UserDefaults.standard.string(forKey: "name")
     
     var body: some View {
@@ -20,7 +21,7 @@ struct MainToDoView: View {
             Spacer()
             Spacer()
             ToDoListView()
-            SaveLoadButtonView()
+            //SaveLoadButtonView()
         }
     }
 }

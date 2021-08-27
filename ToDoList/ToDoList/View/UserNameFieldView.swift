@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct UserNameFieldView: View {
+    
     @Binding var hasUsername: Bool
     @State private var name = ""
-    @State private var username = UserDefaults.standard.string(forKey: "name")
+    @State var username = UserDefaults.standard.string(forKey: "name")
     
     var body: some View {
         VStack {
@@ -23,7 +24,7 @@ struct UserNameFieldView: View {
                 Spacer()
                 TextField("write username", text: $name)
                 Spacer()
-                Button(action: { setName() }, label: { Image(systemName: "chevron.right.square") })
+                Button(action: { setUserInfo() }, label: { Image(systemName: "chevron.right.square") })
                 Spacer()
             }
             .frame(width: 300, height: 100, alignment: .center)
@@ -31,10 +32,10 @@ struct UserNameFieldView: View {
         }
     }
     
-    func setName() {
+    func setUserInfo() {
         username = name
-        hasUsername = true
         UserDefaults.standard.set(self.username, forKey: "name")
+        hasUsername = true
     }
 }
 

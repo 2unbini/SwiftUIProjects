@@ -7,18 +7,14 @@
 
 import SwiftUI
 
-class ToDoLists: ObservableObject {
-    @Published var list = [ToDo]()
-}
-
 @main
 struct ToDoListApp: App {
     
-    @StateObject var toDoList = ToDoLists()
+    //@StateObject var toDoList = ToDoLists()
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(toDoList)
+            ContentView()
         }
     }
 }

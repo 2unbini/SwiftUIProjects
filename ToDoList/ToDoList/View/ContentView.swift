@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var toDoList: ToDoLists
+    @State var hasUsername = false
     @State var username = UserDefaults.standard.string(forKey: "name")
     
     var body: some View {
-        if username == nil {
-            GetUserNameView()
+        if hasUsername == false || username == nil {
+            UserNameFieldView(hasUsername: $hasUsername)
         }
         else {
             MainToDoView()
         }
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

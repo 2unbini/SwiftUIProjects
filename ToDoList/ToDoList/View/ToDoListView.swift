@@ -9,20 +9,23 @@ import SwiftUI
 
 struct ToDoListView: View {
     let sys = GetSysName()
-    @EnvironmentObject var toDoList: ToDoLists
+    var name = UserDefaults.standard.string(forKey: "name")
+    @State var toDoLists = [ToDo]()
+    //@EnvironmentObject var toDoList: ToDoLists
     
     var body: some View {
-        List {
-            ForEach(0..<toDoList.list.count, id: \.self) { i in
+        
+        List{
+            ForEach(0..<toDoLists.count, id: \.self) { i in
                 HStack {
                     Button(action: { checkBtnAction(i) }, label: {
-                        Image(systemName: toDoList.list[i].checked == true
+                        Image(systemName: toDoLists[i].checked == true
                                 ? sys.names[sys.checked]
                                 : sys.names[sys.notChecked])
                     })
                     .buttonStyle(BorderlessButtonStyle())
                     
-                    Text(toDoList.list[i].toDo)
+                    Text(toDoLists[i].title)
                     Spacer()
                     
                     Button(action: { deleteList(i) }, label: {
@@ -32,6 +35,12 @@ struct ToDoListView: View {
                 }
             }
         }
+        .onAppear(perform: { getUserTodo() })
+        .overlay(
+            
+            Text(toDoLists.isEmpty ? "No Todo List" : "")
+        
+        )
     }
     
     struct GetSysName {
@@ -42,15 +51,101 @@ struct ToDoListView: View {
     }
     
     func checkBtnAction(_ i: Int) {
-        if toDoList.list[i].checked {
-            toDoList.list[i].checked = false
-        } else {
-            toDoList.list[i].checked = true
-        }
+        toDoLists[i].checked.toggle()
     }
     
     func deleteList(_ i: Int) {
-        toDoList.list.remove(at: i)
+        let id = String(toDoLists[i].id)
+        guard let url = URL(string: "http://34.64.87.191:8080/api/todos/\(id)") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+                    guard error == nil else {
+                        print("Error: error calling DELETE")
+                        print(error!)
+                        return
+                    }
+            
+                    guard let data = data else {
+                        print("Error: Did not receive data")
+                        return
+                    }
+            
+                    guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                        print("Error: HTTP request failed")
+                        return
+                    }
+            
+                    do {
+                        
+                        guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+                            print("Error: Cannot convert data to JSON")
+                            return
+                        }
+                        
+                        guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
+                            print("Error: Cannot convert JSON object to Pretty JSON data")
+                            return
+                        }
+                        
+                        guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8) else {
+                            print("Error: Could print JSON in String")
+                            return
+                        }
+                        
+                        print(prettyPrintedJson)
+                        
+                    } catch {
+                        
+                        print("Error: Trying to convert JSON data to string")
+                        return
+                        
+                    }
+                }.resume()
+    }
+    
+    func getUserTodo() {
+        guard let url = URL(string: "http://34.64.87.191:8080/api/todos/ekwon") else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            guard error == nil else {
+                print("Error: error calling DELETE")
+                print(error!)
+                return
+            }
+    
+            guard let data = data else {
+                print("Error: Did not receive data")
+                return
+            }
+    
+            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print("Error: HTTP request failed")
+                return
+            }
+            
+            guard let output = try? JSONDecoder().decode([ToDo].self, from: data) else {
+                print("Error: JSON Data Parsing failed")
+                return
+            }
+            print("output : ")
+            print(output)
+            print("=========")
+            
+        }.resume()
     }
 }
 
