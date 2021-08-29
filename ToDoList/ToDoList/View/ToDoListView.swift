@@ -64,12 +64,44 @@ struct ToDoListView: View {
         toggleToDoList(sharedToDo.list[i].checked, sharedToDo.list[i].title, sharedToDo.list[i].id)
     }
     
+    func toggleToDoList(_ check: Bool, _ toDoString: String, _ id: Int64) {
+        let sendList = ToggleToDo(id: id, checked: check, title: toDoString)
+        
+        guard let url = getToDoUrl(name) else {
+            print("Error: Cannot create url")
+            return
+        }
+        
+        guard let sendData = try? JSONEncoder().encode(sendList) else {
+            print("Error: cannot convert struct to JSON data")
+            return
+        }
+        
+        postMethod(url, sendData)
+    }
+    
+    func deleteList(_ i: Int) {
+        //toDoLists = appToDo.list
+        //let id = String(toDoLists[i].id)
+
+        let id = String(appToDo.list[i].id)
+        print("elem ID to delete: " + id)
+        
+        guard let url = getToDoUrl(id) else {
+            print("Error: Cannot create URL")
+            return
+        }
+        
+        deleteMethod(url)
+        
+        appToDo.list.remove(at: i)
+        sharedToDo.list.remove(at: i)
+    }
+    
     func getUserTodo() {
         
-        print(name ?? "")
-        
-        guard let url = URL(string: "http://34.64.87.191:8080/api/todos/\(name!)") else {
-            print("Error: Cannot create URL")
+        guard let url = getToDoUrl(name) else {
+            print("Error: Cannot make url")
             return
         }
         
@@ -100,7 +132,7 @@ struct ToDoListView: View {
             decoder.dateDecodingStrategy = .formatted(formatter)
             
             guard let output = try? decoder.decode([ToDo].self, from: data) else {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
                 print("Error: JSON Data Parsing failed")
                 return
             }
@@ -111,135 +143,8 @@ struct ToDoListView: View {
                 //toDoLists = output
             }
             
-            print("=========")
-            print(type(of: output))
-            print(output)
-            print("=========")
-            
         }.resume()
 
-    }
-    
-    func toggleToDoList(_ check: Bool, _ toDoString: String, _ id: Int64) {
-        let sendList = ToggleToDo(id: id, checked: check, title: toDoString)
-        
-        let name = name
-        if name == nil {
-            print("Cannot get user name")
-            return
-        }
-        
-        guard let url = URL(string: "http://34.64.87.191:8080/api/todos/\(name!)") else {
-            print("Error: cannot create URL")
-            return
-        }
-        
-        guard let sendData = try? JSONEncoder().encode(sendList) else {
-            print("Error: cannot convert struct to JSON data")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = sendData
-        
-        URLSession.shared.dataTask(with: request) { data, respose, error in
-            
-            guard error == nil else {
-                print("Error: Error calling POST")
-                print(error!)
-                return
-            }
-            
-            guard let data = data else {
-                print("Error: Did not recieve Data")
-                print(error!)
-                return
-            }
-            
-            guard let response = respose as? HTTPURLResponse, (200..<299) ~= response.statusCode else {
-                print("Error: HTTP request failed")
-                print(error!)
-                return
-            }
-            
-            do {
-                
-                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Error: Cannot convert data to JSON object")
-                    print(error!)
-                    return
-                }
-                
-                guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
-                    print("Error: Cannot convert JSON object to Pretty JSON data")
-                    print(error!)
-                    return
-                }
-                
-                guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8)
-                else {
-                    print("Error: Couldn't print JSON in String")
-                    print(error!)
-                    return
-                }
-                    
-                print(prettyPrintedJson)
-                
-            } catch {
-                
-                print("Error: Trying to convert JSON data to string")
-                print(error)
-                return
-                
-            }
-            
-        }.resume()
-        
-    }
-    
-    func deleteList(_ i: Int) {
-        //toDoLists = appToDo.list
-        //let id = String(toDoLists[i].id)
-        print(i)
-        print(sharedToDo.list[i])
-        print(appToDo.list[i])
-        let id = String(appToDo.list[i].id)
-        print(id)
-        
-        guard let url = URL(string: "http://34.64.87.191:8080/api/todos/\(id)") else {
-            print("Error: Cannot create URL")
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            
-                guard error == nil else {
-                    print("Error: error calling DELETE")
-                    print(error)
-                    return
-                }
-        
-                guard let data = data else {
-                    print("Error: Did not receive data")
-                    print(error)
-                    return
-                }
-        
-                guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
-                    print("Error: HTTP request failed")
-                    print(error)
-                    return
-                }
-            
-            }.resume()
-        
-        appToDo.list.remove(at: i)
-        sharedToDo.list.remove(at: i)
     }
 }
 

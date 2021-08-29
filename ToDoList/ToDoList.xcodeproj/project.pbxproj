@@ -11,8 +11,12 @@
 		A808B94E26D7444000D9E966 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94726D7444000D9E966 /* ContentView.swift */; };
 		A808B94F26D7444000D9E966 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94826D7444000D9E966 /* ToDoListView.swift */; };
 		A808B95026D7444000D9E966 /* MainToDoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94926D7444000D9E966 /* MainToDoView.swift */; };
-		A808B95226D7444000D9E966 /* ToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94B26D7444000D9E966 /* ToDo.swift */; };
+		A808B95226D7444000D9E966 /* Struct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B94B26D7444000D9E966 /* Struct.swift */; };
 		A808B95526D7455700D9E966 /* UserNameFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A808B95426D7455700D9E966 /* UserNameFieldView.swift */; };
+		A83ED6F526DB61ED001C1FAB /* HttpMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83ED6F426DB61ED001C1FAB /* HttpMethods.swift */; };
+		A83ED6F726DB6336001C1FAB /* urlMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83ED6F626DB6336001C1FAB /* urlMethods.swift */; };
+		A83ED6FB26DBA574001C1FAB /* CreateNewUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83ED6FA26DBA574001C1FAB /* CreateNewUserView.swift */; };
+		A83ED6FD26DBC51F001C1FAB /* JSONMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83ED6FC26DBC51F001C1FAB /* JSONMethods.swift */; };
 		A8657B5926D3E28C001BD8D0 /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8657B5826D3E28C001BD8D0 /* ToDoListApp.swift */; };
 		A8657B5D26D3E28F001BD8D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8657B5C26D3E28F001BD8D0 /* Assets.xcassets */; };
 		A8657B6026D3E28F001BD8D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8657B5F26D3E28F001BD8D0 /* Preview Assets.xcassets */; };
@@ -36,8 +40,12 @@
 		A808B94726D7444000D9E966 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A808B94826D7444000D9E966 /* ToDoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
 		A808B94926D7444000D9E966 /* MainToDoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainToDoView.swift; sourceTree = "<group>"; };
-		A808B94B26D7444000D9E966 /* ToDo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDo.swift; sourceTree = "<group>"; };
+		A808B94B26D7444000D9E966 /* Struct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Struct.swift; sourceTree = "<group>"; };
 		A808B95426D7455700D9E966 /* UserNameFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameFieldView.swift; sourceTree = "<group>"; };
+		A83ED6F426DB61ED001C1FAB /* HttpMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMethods.swift; sourceTree = "<group>"; };
+		A83ED6F626DB6336001C1FAB /* urlMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = urlMethods.swift; sourceTree = "<group>"; };
+		A83ED6FA26DBA574001C1FAB /* CreateNewUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewUserView.swift; sourceTree = "<group>"; };
+		A83ED6FC26DBC51F001C1FAB /* JSONMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONMethods.swift; sourceTree = "<group>"; };
 		A8657B5526D3E28C001BD8D0 /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8657B5826D3E28C001BD8D0 /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		A8657B5C26D3E28F001BD8D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,8 +72,19 @@
 				A808B94526D7443F00D9E966 /* TextFieldView.swift */,
 				A808B94826D7444000D9E966 /* ToDoListView.swift */,
 				A808B95426D7455700D9E966 /* UserNameFieldView.swift */,
+				A83ED6FA26DBA574001C1FAB /* CreateNewUserView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		A83ED6F326DB61D7001C1FAB /* Function */ = {
+			isa = PBXGroup;
+			children = (
+				A83ED6F426DB61ED001C1FAB /* HttpMethods.swift */,
+				A83ED6F626DB6336001C1FAB /* urlMethods.swift */,
+				A83ED6FC26DBC51F001C1FAB /* JSONMethods.swift */,
+			);
+			path = Function;
 			sourceTree = "<group>";
 		};
 		A8657B4C26D3E28C001BD8D0 = {
@@ -87,8 +106,9 @@
 		A8657B5726D3E28C001BD8D0 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				A83ED6F326DB61D7001C1FAB /* Function */,
 				A808B95326D7444F00D9E966 /* View */,
-				A808B94B26D7444000D9E966 /* ToDo.swift */,
+				A808B94B26D7444000D9E966 /* Struct.swift */,
 				A8657B5826D3E28C001BD8D0 /* ToDoListApp.swift */,
 				A8657B5C26D3E28F001BD8D0 /* Assets.xcassets */,
 				A8657B6126D3E28F001BD8D0 /* Info.plist */,
@@ -175,9 +195,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83ED6FB26DBA574001C1FAB /* CreateNewUserView.swift in Sources */,
+				A83ED6F526DB61ED001C1FAB /* HttpMethods.swift in Sources */,
+				A83ED6F726DB6336001C1FAB /* urlMethods.swift in Sources */,
+				A83ED6FD26DBC51F001C1FAB /* JSONMethods.swift in Sources */,
 				A808B94C26D7444000D9E966 /* TextFieldView.swift in Sources */,
 				A808B95026D7444000D9E966 /* MainToDoView.swift in Sources */,
-				A808B95226D7444000D9E966 /* ToDo.swift in Sources */,
+				A808B95226D7444000D9E966 /* Struct.swift in Sources */,
 				A8657B5926D3E28C001BD8D0 /* ToDoListApp.swift in Sources */,
 				A808B95526D7455700D9E966 /* UserNameFieldView.swift in Sources */,
 				A808B94E26D7444000D9E966 /* ContentView.swift in Sources */,

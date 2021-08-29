@@ -35,13 +35,7 @@ struct TextFieldView: View {
         let sendList = SendToDo(checked: check, title: toDoString)
         toDoString = ""
         
-        let name = name
-        if name == nil {
-            print("Cannot get user name")
-            return
-        }
-        
-        guard let url = URL(string: "http://34.64.87.191:8080/api/todos/\(name!)") else {
+        guard let url = getToDoUrl(name) else {
             print("Error: cannot create URL")
             return
         }
@@ -51,64 +45,14 @@ struct TextFieldView: View {
             return
         }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = sendData
-        
-        URLSession.shared.dataTask(with: request) { data, respose, error in
-            
-            guard error == nil else {
-                print("Error: Error calling POST")
-                print(error!)
-                return
-            }
-            
-            guard let data = data else {
-                print("Error: Did not recieve Data")
-                return
-            }
-            
-            guard let response = respose as? HTTPURLResponse, (200..<299) ~= response.statusCode else {
-                print("Error: HTTP request failed")
-                return
-            }
-            
-            do {
-                
-                guard let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
-                    print("Error: Cannot convert data to JSON object")
-                    return
-                }
-                
-                guard let prettyJsonData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted) else {
-                    print("Error: Cannot convert JSON object to Pretty JSON data")
-                    return
-                }
-                
-                guard let prettyPrintedJson = String(data: prettyJsonData, encoding: .utf8)
-                else {
-                    print("Error: Couldn't print JSON in String")
-                    return
-                }
-                    
-                print(prettyPrintedJson)
-                
-            } catch {
-                
-                print("Error: Trying to convert JSON data to string")
-                return
-                
-            }
-            
-        }.resume()
+        postMethod(url, sendData)
         
     }
     
     func appendToDoList() {
         // Get New Todo array and switch to the new thang ...
         
-        guard let url = URL(string: "http://34.64.87.191:8080/api/todos/\(name!)") else {
+        guard let url = getToDoUrl(name) else {
             print("Error: Cannot create URL")
             return
         }
@@ -140,7 +84,7 @@ struct TextFieldView: View {
             decoder.dateDecodingStrategy = .formatted(formatter)
             
             guard let output = try? decoder.decode([ToDo].self, from: data) else {
-                print(error?.localizedDescription)
+                print(error!.localizedDescription)
                 print("Error: JSON Data Parsing failed")
                 return
             }
@@ -149,12 +93,6 @@ struct TextFieldView: View {
                 appToDo.list = output
                 sharedToDo.list = output
             }
-            
-            /*
-            print("=========")
-            print(output)
-            print("=========")
-            */
             
         }.resume()
         

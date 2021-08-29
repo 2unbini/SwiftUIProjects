@@ -26,9 +26,22 @@ struct ToDo : Codable, Identifiable {
     var checked: Bool
 }
 
+struct User: Codable, Identifiable {
+    var id: Int64
+    var name: String
+    var email: String
+    var password: String
+}
+
 struct SendToDo: Codable {
     var checked: Bool
     var title: String
+}
+
+struct SendUser: Codable {
+    var name: String
+    var email: String
+    var password: String
 }
 
 struct ToggleToDo: Codable {
