@@ -18,7 +18,6 @@ struct UserNameFieldView: View {
     
     var body: some View {
         VStack {
-            //Text("What's your name?")
             HStack {
                 Spacer()
                 Image(systemName: "person")
@@ -41,6 +40,7 @@ struct UserNameFieldView: View {
     func setUserInfo() {
         
         checkValidUser(name)
+        name = ""
         
         if isSuccessful == false {
             hasUsername = false
@@ -50,6 +50,7 @@ struct UserNameFieldView: View {
             username = name
             UserDefaults.standard.set(self.username, forKey: "name")
             hasUsername = true
+            showAlert = false
         }
 
     }
