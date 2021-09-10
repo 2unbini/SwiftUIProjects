@@ -9,9 +9,9 @@ SUPER SIMPLE PROJECTS TO STUDY SwiftUI
 
 ### Stop Watch and Timer
 <div style="inline-block">
-<img src=“https://user-images.githubusercontent.com/75126613/132861725-639346be-811b-41f1-975f-44a618a6cbf1.png" width="30%" height="30%">
-<img src=“https://user-images.githubusercontent.com/75126613/132861744-8c5b0be6-df11-41b9-8774-780470306649.png" width="30%" height="30%">
-<img src=“https://user-images.githubusercontent.com/75126613/132861749-1e1a7f27-d21c-4040-bbd1-fefffe651963.png" width="30%" height="30%">
+<img src=“https://user-images.githubusercontent.com/75126613/132861725-639346be-811b-41f1-975f-44a618a6cbf1.png" width="30%">
+<img src=“https://user-images.githubusercontent.com/75126613/132861744-8c5b0be6-df11-41b9-8774-780470306649.png" width="30%">
+<img src=“https://user-images.githubusercontent.com/75126613/132861749-1e1a7f27-d21c-4040-bbd1-fefffe651963.png" width="30%">
 </div>
 
 ### Todo List
