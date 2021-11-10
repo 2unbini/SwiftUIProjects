@@ -7,6 +7,8 @@
 
 import Foundation
 
+// task structure
+
 struct ToDo : Identifiable, Codable {
     var id = UUID()
     var toDo: String
