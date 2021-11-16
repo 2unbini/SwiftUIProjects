@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-<<<<<<< HEAD
 // 전역변수처럼 사용할 Todo 리스트
 // ObservableObject를 사용하기 위해선 class(reference type) 사용
 
@@ -18,16 +17,8 @@ class ToDoLists: ObservableObject {
 @main
 struct ToDoListApp: App {
     
-    // App 의 시작에서 변수 초기화
-    
-    @StateObject var toDoList = ToDoLists()
-=======
-@main
-struct ToDoListApp: App {
-    
     @StateObject var appToDo = AppToDo()
     @StateObject var sharedToDo = ShareToDo()
->>>>>>> 84493dd914ebbcd9e1d85143a0f9725fbf37e34e
     
     var body: some Scene {
         WindowGroup {
