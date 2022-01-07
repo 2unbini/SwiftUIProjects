@@ -9,12 +9,12 @@ import SwiftUI
 
 struct MonthView<DayView>: View where DayView: View {
     @Environment(\.calendar) var calendar: Calendar
-    @ObservedObject var currentDay: CurrentDayState
+    @ObservedObject var currentDay: CurrentDayViewModel
     
     let month: Date
     let content: (Date) -> DayView
     
-    init(of month: Date, _ currentDay: CurrentDayState, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(of month: Date, _ currentDay: CurrentDayViewModel, @ViewBuilder content: @escaping (Date) -> DayView) {
         self.month = month
         self.content = content
         self.currentDay = currentDay

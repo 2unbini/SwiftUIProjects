@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class CurrentDayState: ObservableObject {
+class CurrentDayViewModel: ObservableObject {
     @Published var stringified: Stringified
     @Published var interval: DateInterval
     
@@ -26,7 +26,6 @@ class CurrentDayState: ObservableObject {
         let year: Int
         let month: Int
         let day: Int
-        let parsedDate: [String]
         let startDate = DateComponents(year: CalendarYear.start.rawValue, month: 1, day: 1)
         let endDate = DateComponents(year: CalendarYear.end.rawValue, month: 12, day: 31)
         
@@ -40,8 +39,6 @@ class CurrentDayState: ObservableObject {
         month = calendar.component(.month, from: today)
         day = calendar.component(.day, from: today)
         
-//        stringifiedToday = formatter.string(from: today)
-//        parsedDate = stringifiedToday.split(separator: "-").map { String($0) }
         stringified = Stringified(year: String(year), month: String(month), day: String(day))
         
         scrollIndexToInit = year - CalendarYear.start.rawValue
@@ -55,15 +52,9 @@ class CurrentDayState: ObservableObject {
     
     // 문자열화 된 현재의 년, 월, 일 업데이트 함수
     func updateCurrentDateString(with date: Date) {
-        let stringifiedToday: String
-        let parsedDate: [String]
-        
-        stringifiedToday = formatter.string(from: date)
-        parsedDate = stringifiedToday.split(separator: "-").map { String($0) }
-        
-        self.stringified.year = parsedDate[0]
-        self.stringified.month = parsedDate[1]
-        self.stringified.day = parsedDate[2]
+        self.stringified.year = String(calendar.component(.year, from: date))
+        self.stringified.month = String(calendar.component(.month, from: date))
+        self.stringified.day = String(calendar.component(.day, from: date))
     }
     
     // 문자열화 된 현재의 년도로 바꾸는 함수

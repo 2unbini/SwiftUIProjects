@@ -9,13 +9,13 @@ import SwiftUI
 
 struct CalendarView<DayView> : View where DayView: View {
     @Environment(\.calendar) var calendar
-    @ObservedObject var currentDay: CurrentDayState
+    @ObservedObject var currentDay: CurrentDayViewModel
     @State private var isInitializedFirst: Bool = true
     
     let content: (Date) -> DayView
     
     init(@ViewBuilder content: @escaping (Date) -> DayView) {
-        self.currentDay = CurrentDayState()
+        self.currentDay = CurrentDayViewModel()
         self.content = content
     }
     
