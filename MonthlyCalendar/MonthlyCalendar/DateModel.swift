@@ -10,6 +10,7 @@ import SwiftUI
 class CurrentDayViewModel: ObservableObject {
     @Published var stringified: Stringified
     @Published var interval: DateInterval
+    @Published var initialDateId: Date
     
     let calendar: Calendar
     let formatter: DateFormatter
@@ -44,6 +45,7 @@ class CurrentDayViewModel: ObservableObject {
         scrollIndexToInit = year - CalendarYear.start.rawValue
         
         interval = DateInterval(start: calendar.date(from: startDate)!, end: calendar.date(from: endDate)!)
+        initialDateId = Date()
     }
     
     func updateInterval(with interval: DateInterval) {

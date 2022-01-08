@@ -29,7 +29,7 @@ struct WeekView<DayView>: View where DayView: View {
     }
     
     var body: some View {
-        LazyHStack(alignment: .center, spacing: 0) {
+        HStack(alignment: .center, spacing: 0) {
             ForEach(days, id: \.self) { day in
                 if calendar.isDate(day, equalTo: week, toGranularity: .month) {
                     dayView(day)
