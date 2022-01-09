@@ -31,9 +31,9 @@ struct CalendarView<DayView> : View where DayView: View {
             ScrollViewReader { proxy in
                 ScrollView(.vertical, showsIndicators: false) {
                     LazyVStack {
-                        ForEach(0..<years.count, id: \.self) { yearIndex in
-                            YearView(of: years[yearIndex], currentDay, content: content)
-                                .id(yearIndex)
+                        ForEach(years, id: \.self) { year in
+                            YearView(of: year, currentDay, content: content)
+                                .id(year)
                         }
                     }
                     .navigationBarTitleDisplayMode(.inline)
@@ -42,10 +42,14 @@ struct CalendarView<DayView> : View where DayView: View {
                             CustomBarTitle(presenting: currentDay.stringified.year)
                         }
                     }
+
                 }
                 .onAppear(perform: {
-                    proxy.scrollTo(currentDay.initialDateId as Date, anchor: .top)
+                    DispatchQueue.main.async {
+                        proxy.scrollTo(currentDay.initialDateId, anchor: .top)
+                    }
                 })
+                
             }
         }
     }

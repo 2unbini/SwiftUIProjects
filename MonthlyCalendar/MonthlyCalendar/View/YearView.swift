@@ -33,6 +33,13 @@ struct YearView<DayView>: View where DayView: View {
         LazyVStack {
             ForEach(months, id: \.self) { month in
                 MonthView(of: month, currentDay, content: content)
+                    .onAppear(perform: {
+                        print(month)
+                        print(type(of: month))
+                        print(currentDay.initialDateId)
+                        print(type(of: currentDay.initialDateId))
+                    })
+                    .id(month)
             }
         }
     }

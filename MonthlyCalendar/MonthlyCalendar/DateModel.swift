@@ -14,7 +14,6 @@ class CurrentDayViewModel: ObservableObject {
     
     let calendar: Calendar
     let formatter: DateFormatter
-    var scrollIndexToInit: Int
     private var today: Date
     
     struct Stringified {
@@ -42,9 +41,10 @@ class CurrentDayViewModel: ObservableObject {
         
         stringified = Stringified(year: String(year), month: String(month), day: String(day))
         
-        scrollIndexToInit = year - CalendarYear.start.rawValue
-        
         interval = DateInterval(start: calendar.date(from: startDate)!, end: calendar.date(from: endDate)!)
+        
+        // 지금은 '오늘' 날짜로 되어 있음
+        // 내가 움직일 날짜 형식(2022-01-31 15:00:00 +0000)으로 바꾸는 것 필요
         initialDateId = Date()
     }
     
