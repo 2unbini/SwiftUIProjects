@@ -14,8 +14,8 @@ struct CalendarView<DayView> : View where DayView: View {
     
     let content: (Date) -> DayView
     
-    init(@ViewBuilder content: @escaping (Date) -> DayView) {
-        self.calendarConfig = CalendarConfiguration()
+    init(_ calendarConfig: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
+        self.calendarConfig = calendarConfig
         self.content = content
     }
     

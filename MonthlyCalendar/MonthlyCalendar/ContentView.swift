@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.calendar) var calendar
+    @StateObject var calendarConfig: CalendarConfiguration = CalendarConfiguration()
     
     var body: some View {
-        CalendarView { day in
-            DayView(presenting: String(calendar.component(.day, from: day)))
+        CalendarView(calendarConfig) { day in
+            DayView(presenting: day, with: calendarConfig)
         }
     }
 }

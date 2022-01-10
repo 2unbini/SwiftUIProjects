@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeekView<DayView>: View where DayView: View {
-    @Environment(\.calendar) var calendar
+    @Environment(\.calendar) var calendar: Calendar
     
     let week: Date
     let dayView: (Date) -> DayView
@@ -30,15 +30,9 @@ struct WeekView<DayView>: View where DayView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(0..<7, id: \.self) { index in
-                let day = days[index]
+            ForEach(days, id: \.self) { day in
                 if calendar.isDate(day, equalTo: week, toGranularity: .month) {
-                    if (1...5).contains(index) {
-                        dayView(day)
-                    }
-                    else {
-                        dayView(day).foregroundColor(.gray)
-                    }
+                    dayView(day)
                 } else {
                     dayView(day).hidden()
                 }

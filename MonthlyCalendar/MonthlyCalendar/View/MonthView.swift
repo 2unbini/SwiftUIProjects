@@ -9,15 +9,15 @@ import SwiftUI
 
 struct MonthView<DayView>: View where DayView: View {
     @Environment(\.calendar) var calendar: Calendar
-    @ObservedObject var currentDay: CalendarConfiguration
+    @ObservedObject var calendarConfig: CalendarConfiguration
     
     let month: Date
     let content: (Date) -> DayView
     
-    init(of month: Date, _ currentDay: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(of month: Date, _ calendarConfig: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
         self.month = month
         self.content = content
-        self.currentDay = currentDay
+        self.calendarConfig = calendarConfig
     }
     
     // 해당 월의 주 배열
@@ -35,9 +35,10 @@ struct MonthView<DayView>: View where DayView: View {
             ForEach(0..<weeks.count, id: \.self) { nth in
                 if nth == 0 {
                     MonthLabel(of: month, upon: weeks[nth])
+                        .foregroundColor(calendarConfig.isSameMonthAsToday(month) ? .red : .black)
                         .onAppear {
                             // 월에 대한 라벨이 나올 때만 업데이트 -> 터치에 그나마 조금 덜 반응 + 월이 시작될 때 바뀜
-                            currentDay.changeYearString(with: month)
+                            calendarConfig.changeYearString(with: month)
                         }
                 }
                 WeekView(of: weeks[nth], content: content)

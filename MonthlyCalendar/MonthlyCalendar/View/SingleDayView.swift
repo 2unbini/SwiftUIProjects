@@ -8,20 +8,39 @@
 import SwiftUI
 
 struct DayView: View {
-    let label: String
+    let date: Date
+    let calendarConfig: CalendarConfiguration
+    let isSameDayAsToday: Bool
+    let isWeekend: Bool = false
+    let hasSchedule: Bool = true
     
-    init(presenting label: String) {
-        self.label = label
+    init(presenting date: Date, with calendarConfig: CalendarConfiguration) {
+        self.date = date
+        self.calendarConfig = calendarConfig
+        self.isSameDayAsToday = calendarConfig.isSameDayAsToday(date)
+        print(date)
     }
     
     var body: some View {
         VStack(spacing: 0) {
             Divider()
-            Text(label)
-                .font(.system(size: 17))
-                .padding(.top, 5)
+            ZStack(alignment: .center) {
+                Circle()
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(isSameDayAsToday ? .red : .clear)
+                Text("\(calendarConfig.calendar.component(.day, from: date))")
+                    .font(.system(size: 17))
+                    .foregroundColor(isSameDayAsToday ? .white : .black)
+            }
+            .padding(.top, 5)
+            if hasSchedule {
+                Circle()
+                    .font(.system(size: 10))
+                    .foregroundColor(.gray.opacity(0.3))
+                    .padding(.top, 3)
+            }
         }
-        .padding(.bottom, 40)
+        .padding(.bottom, 30)
     }
 }
 
