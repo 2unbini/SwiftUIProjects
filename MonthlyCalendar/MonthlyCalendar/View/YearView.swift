@@ -7,23 +7,20 @@
 
 import SwiftUI
 
-struct YearView<DayView>: View where DayView: View {
-    @Environment(\.calendar) var calendar: Calendar
+struct YearView: View {
     @ObservedObject var calendarConfig: CalendarConfiguration
     
     let year: Date
-    let content: (Date) -> DayView
     
-    init(of year: Date, _ calendarConfig: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(of year: Date, _ calendarConfig: CalendarConfiguration) {
         self.year = year
-        self.content = content
         self.calendarConfig = calendarConfig
     }
     
     // 해당 년도의 달 배열
     private var months: [Date] {
-        guard let yearInterval = calendar.dateInterval(of: .year, for: year) else { return [] }
-        return calendar.generateDates(
+        guard let yearInterval = calendarConfig.calendar.dateInterval(of: .year, for: year) else { return [] }
+        return calendarConfig.calendar.generateDates(
             interval: yearInterval,
             with: DateComponents(day: 1, hour: 0, minute: 0, second: 0)
         )
@@ -32,7 +29,7 @@ struct YearView<DayView>: View where DayView: View {
     var body: some View {
         LazyVStack {
             ForEach(months, id: \.self) { month in
-                MonthView(of: month, calendarConfig, content: content)
+                MonthView(of: month, calendarConfig)
                     .id(month)
             }
         }

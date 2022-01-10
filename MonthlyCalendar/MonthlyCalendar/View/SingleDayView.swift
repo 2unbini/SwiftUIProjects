@@ -11,14 +11,14 @@ struct DayView: View {
     let date: Date
     let calendarConfig: CalendarConfiguration
     let isSameDayAsToday: Bool
-    let isWeekend: Bool = false
+    let isWeekend: Bool
     let hasSchedule: Bool = true
     
-    init(presenting date: Date, with calendarConfig: CalendarConfiguration) {
+    init(presenting date: Date, isWeekend: Bool, with calendarConfig: CalendarConfiguration) {
         self.date = date
         self.calendarConfig = calendarConfig
         self.isSameDayAsToday = calendarConfig.isSameDayAsToday(date)
-        print(date)
+        self.isWeekend = isWeekend
     }
     
     var body: some View {
@@ -30,7 +30,7 @@ struct DayView: View {
                     .foregroundColor(isSameDayAsToday ? .red : .clear)
                 Text("\(calendarConfig.calendar.component(.day, from: date))")
                     .font(.system(size: 17))
-                    .foregroundColor(isSameDayAsToday ? .white : .black)
+                    .foregroundColor(isSameDayAsToday ? .white : isWeekend ? .gray : .black)
             }
             .padding(.top, 5)
             if hasSchedule {

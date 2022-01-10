@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.calendar) var calendar
     @StateObject var calendarConfig: CalendarConfiguration = CalendarConfiguration()
     
     var body: some View {
-        CalendarView(calendarConfig) { day in
-            DayView(presenting: day, with: calendarConfig)
-        }
+        CalendarView(calendarConfig)
     }
 }
 

@@ -7,26 +7,23 @@
 
 import SwiftUI
 
-struct MonthView<DayView>: View where DayView: View {
-    @Environment(\.calendar) var calendar: Calendar
+struct MonthView: View {
     @ObservedObject var calendarConfig: CalendarConfiguration
     
     let month: Date
-    let content: (Date) -> DayView
     
-    init(of month: Date, _ calendarConfig: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(of month: Date, _ calendarConfig: CalendarConfiguration) {
         self.month = month
-        self.content = content
         self.calendarConfig = calendarConfig
     }
     
     // 해당 월의 주 배열
     private var weeks: [Date] {
-        guard let monthInterval = calendar.dateInterval(of: .month, for: month) else { return [] }
+        guard let monthInterval = calendarConfig.calendar.dateInterval(of: .month, for: month) else { return [] }
         
-        return calendar.generateDates(
+        return calendarConfig.calendar.generateDates(
             interval: monthInterval,
-            with: DateComponents(hour:0, minute: 0, second: 0, weekday: calendar.firstWeekday)
+            with: DateComponents(hour:0, minute: 0, second: 0, weekday: calendarConfig.calendar.firstWeekday)
         )
     }
     
@@ -41,7 +38,7 @@ struct MonthView<DayView>: View where DayView: View {
                             calendarConfig.changeYearString(with: month)
                         }
                 }
-                WeekView(of: weeks[nth], content: content)
+                WeekView(of: weeks[nth], calendarConfig)
             }
         }
     }

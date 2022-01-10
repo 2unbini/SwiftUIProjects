@@ -7,20 +7,15 @@
 
 import SwiftUI
 
-struct CalendarView<DayView> : View where DayView: View {
-    @Environment(\.calendar) var calendar
+struct CalendarView: View {
     @ObservedObject var calendarConfig: CalendarConfiguration
-    @State private var isInitializedFirst: Bool = true
     
-    let content: (Date) -> DayView
-    
-    init(_ calendarConfig: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(_ calendarConfig: CalendarConfiguration) {
         self.calendarConfig = calendarConfig
-        self.content = content
     }
     
     private var years: [Date] {
-        return calendar.generateDates(
+        return calendarConfig.calendar.generateDates(
             interval: calendarConfig.calendarInterval,
             with: DateComponents(month: 1, day: 1, hour: 0, minute: 0, second: 0)
         )
@@ -35,7 +30,7 @@ struct CalendarView<DayView> : View where DayView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         LazyVStack {
                             ForEach(years, id: \.self) { year in
-                                YearView(of: year, calendarConfig, content: content)
+                                YearView(of: year, calendarConfig)
                             }
                         }
                         .navigationBarHidden(true)

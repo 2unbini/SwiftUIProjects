@@ -7,22 +7,21 @@
 
 import SwiftUI
 
-struct WeekView<DayView>: View where DayView: View {
-    @Environment(\.calendar) var calendar: Calendar
-    
+struct WeekView: View {
+    let weekdayRange: Range = Range(1...5)
     let week: Date
-    let dayView: (Date) -> DayView
+    let calendarConfig: CalendarConfiguration
     
-    init(of week: Date, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(of week: Date, _ calendarConfig: CalendarConfiguration) {
         self.week = week
-        self.dayView = content
+        self.calendarConfig = calendarConfig
     }
     
     // 해당 주의 일 배열
     private var days: [Date] {
-        guard let weekInterval = calendar.dateInterval(of: .weekOfMonth, for: week) else { return [] }
+        guard let weekInterval = calendarConfig.calendar.dateInterval(of: .weekOfMonth, for: week) else { return [] }
         
-        return calendar.generateDates(
+        return calendarConfig.calendar.generateDates(
             interval: weekInterval,
             with: DateComponents(hour: 0, minute: 0, second: 0)
         )
@@ -30,11 +29,12 @@ struct WeekView<DayView>: View where DayView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            ForEach(days, id: \.self) { day in
-                if calendar.isDate(day, equalTo: week, toGranularity: .month) {
-                    dayView(day)
+            ForEach(0..<7, id: \.self) { index in
+                let day = days[index]
+                if calendarConfig.calendar.isDate(day, equalTo: week, toGranularity: .month) {
+                    DayView(presenting: day, isWeekend: weekdayRange.contains(index) ? false : true, with: calendarConfig)
                 } else {
-                    dayView(day).hidden()
+                    DayView(presenting: day, isWeekend: false, with: calendarConfig).hidden()
                 }
             }
         }
