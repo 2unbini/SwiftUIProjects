@@ -9,12 +9,12 @@ import SwiftUI
 
 struct MonthView<DayView>: View where DayView: View {
     @Environment(\.calendar) var calendar: Calendar
-    @ObservedObject var currentDay: CurrentDayViewModel
+    @ObservedObject var currentDay: CalendarConfiguration
     
     let month: Date
     let content: (Date) -> DayView
     
-    init(of month: Date, _ currentDay: CurrentDayViewModel, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(of month: Date, _ currentDay: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
         self.month = month
         self.content = content
         self.currentDay = currentDay
@@ -31,13 +31,13 @@ struct MonthView<DayView>: View where DayView: View {
     }
     
     var body: some View {
-        LazyVStack(spacing: 0) {
+        LazyVStack {
             ForEach(0..<weeks.count, id: \.self) { nth in
                 if nth == 0 {
                     MonthLabel(of: month, upon: weeks[nth])
                         .onAppear {
                             // 월에 대한 라벨이 나올 때만 업데이트 -> 터치에 그나마 조금 덜 반응 + 월이 시작될 때 바뀜
-                            currentDay.changeYear(with: month)
+                            currentDay.changeYearString(with: month)
                         }
                 }
                 WeekView(of: weeks[nth], content: content)

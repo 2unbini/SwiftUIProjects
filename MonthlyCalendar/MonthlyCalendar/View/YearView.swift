@@ -9,15 +9,15 @@ import SwiftUI
 
 struct YearView<DayView>: View where DayView: View {
     @Environment(\.calendar) var calendar: Calendar
-    @ObservedObject var currentDay: CurrentDayViewModel
+    @ObservedObject var calendarConfig: CalendarConfiguration
     
     let year: Date
     let content: (Date) -> DayView
     
-    init(of year: Date, _ currentDay: CurrentDayViewModel, @ViewBuilder content: @escaping (Date) -> DayView) {
+    init(of year: Date, _ calendarConfig: CalendarConfiguration, @ViewBuilder content: @escaping (Date) -> DayView) {
         self.year = year
         self.content = content
-        self.currentDay = currentDay
+        self.calendarConfig = calendarConfig
     }
     
     // 해당 년도의 달 배열
@@ -32,13 +32,7 @@ struct YearView<DayView>: View where DayView: View {
     var body: some View {
         LazyVStack {
             ForEach(months, id: \.self) { month in
-                MonthView(of: month, currentDay, content: content)
-                    .onAppear(perform: {
-                        print(month)
-                        print(type(of: month))
-                        print(currentDay.initialDateId)
-                        print(type(of: currentDay.initialDateId))
-                    })
+                MonthView(of: month, calendarConfig, content: content)
                     .id(month)
             }
         }

@@ -15,16 +15,13 @@ struct DayView: View {
     }
     
     var body: some View {
-        Text("Day")
-            .hidden()
-            .padding(10)
-            .padding(.bottom, 20)
-            .overlay(
-                VStack {
-                    Divider()
-                    Text(label)
-                }
-            )
+        VStack(spacing: 0) {
+            Divider()
+            Text(label)
+                .font(.system(size: 17))
+                .padding(.top, 5)
+        }
+        .padding(.bottom, 40)
     }
 }
 

@@ -9,70 +9,49 @@ import SwiftUI
 
 struct CalendarView<DayView> : View where DayView: View {
     @Environment(\.calendar) var calendar
-    @ObservedObject var currentDay: CurrentDayViewModel
+    @ObservedObject var calendarConfig: CalendarConfiguration
     @State private var isInitializedFirst: Bool = true
     
     let content: (Date) -> DayView
     
     init(@ViewBuilder content: @escaping (Date) -> DayView) {
-        self.currentDay = CurrentDayViewModel()
+        self.calendarConfig = CalendarConfiguration()
         self.content = content
     }
     
     private var years: [Date] {
         return calendar.generateDates(
-            interval: currentDay.interval,
+            interval: calendarConfig.calendarInterval,
             with: DateComponents(month: 1, day: 1, hour: 0, minute: 0, second: 0)
         )
     }
     
     var body: some View {
         NavigationView {
-            ScrollViewReader { proxy in
-                ScrollView(.vertical, showsIndicators: false) {
-                    LazyVStack {
-                        ForEach(years, id: \.self) { year in
-                            YearView(of: year, currentDay, content: content)
-                                .id(year)
+            VStack(spacing: 0) {
+                // TODO: Fix view constraint crash
+                CustomBar(presenting: calendarConfig.stringified.year)
+                ScrollViewReader { proxy in
+                    ScrollView(.vertical, showsIndicators: false) {
+                        LazyVStack {
+                            ForEach(years, id: \.self) { year in
+                                YearView(of: year, calendarConfig, content: content)
+                            }
                         }
+                        .navigationBarHidden(true)
                     }
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            CustomBarTitle(presenting: currentDay.stringified.year)
+                    .onAppear(perform: {
+                        DispatchQueue.main.async {
+                            proxy.scrollTo(calendarConfig.initialDateId, anchor: .top)
                         }
-                    }
-
+                    })
                 }
-                .onAppear(perform: {
-                    DispatchQueue.main.async {
-                        proxy.scrollTo(currentDay.initialDateId, anchor: .top)
-                    }
-                })
-                
             }
         }
     }
 }
 
-struct ScrollBackToToday: View {
-    
-    let proxy: ScrollViewProxy
-    let id: Int
-    
-    init(with proxy: ScrollViewProxy, to id: Int) {
-        self.proxy = proxy
-        self.id = id
-    }
-    
-    var body: some View {
-        Button("Today") {
-            proxy.scrollTo(id, anchor: .top)
-        }
-    }
-}
-
-struct CustomBarTitle: View {
+struct CustomBar: View {
     
     let year: String
     
@@ -81,26 +60,61 @@ struct CustomBarTitle: View {
     }
     
     var body: some View {
-        VStack {
-            Spacer()
-            Text(year).font(.headline)
-            Header().font(.footnote)
-            Spacer()
+        ZStack() {
+            Rectangle()
+                .strokeBorder(.gray.opacity(0.3))
+                .foregroundColor(Color.gray.opacity(0.2))
+                .ignoresSafeArea()
+            VStack(spacing: 0) {
+                Buttons(presenting: year)
+                daySymbolHeader.font(.caption)
+            }
         }
+        .frame(maxHeight: 60)
     }
     
-    struct Header: View {
-        private var daySymbols: [String] {
-            return Calendar.current.shortWeekdaySymbols
+    struct Buttons: View {
+        
+        let year: String
+        
+        init(presenting year: String) {
+            self.year = year
         }
         
         var body: some View {
-            HStack(alignment: .center, spacing: 26) {
-                ForEach(daySymbols, id: \.self) { symbol in
-                    Text(symbol)
+            HStack {
+                HStack {
+                    Image(systemName: "chevron.left")
+                    Text("\(year)년")
                 }
+                .padding(.leading, 10)
+                .font(.headline)
+                .foregroundColor(.red)
+                Spacer()
+                HStack(spacing: 20) {
+                    Image(systemName: "list.bullet.below.rectangle")
+                    Image(systemName: "magnifyingglass")
+                    Image(systemName: "plus")
+                }
+                .padding(.trailing, 10)
+                .font(.title3)
+                .foregroundColor(.red)
             }
         }
+    }
+    
+    private var daySymbolHeader: some View {
+        let daySymbols = ["일", "월", "화", "수", "목", "금", "토"]
+        
+        return HStack(alignment: .center) {
+                ForEach(daySymbols, id: \.self) { symbol in
+                    Text(symbol)
+                        .fontWeight(.bold)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(symbol == "일" || symbol == "토" ? .gray : .black)
+            }
+        }
+        .padding(.top, 10)
     }
 }
 

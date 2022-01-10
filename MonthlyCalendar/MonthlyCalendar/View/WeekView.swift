@@ -29,10 +29,16 @@ struct WeekView<DayView>: View where DayView: View {
     }
     
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            ForEach(days, id: \.self) { day in
+        HStack(spacing: 0) {
+            ForEach(0..<7, id: \.self) { index in
+                let day = days[index]
                 if calendar.isDate(day, equalTo: week, toGranularity: .month) {
-                    dayView(day)
+                    if (1...5).contains(index) {
+                        dayView(day)
+                    }
+                    else {
+                        dayView(day).foregroundColor(.gray)
+                    }
                 } else {
                     dayView(day).hidden()
                 }

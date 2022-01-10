@@ -13,20 +13,9 @@ struct MonthLabel: View {
     let month: Date
     
     private var symbolOfMonth: String {
-        var symbol: String = ""
         let suffix: String = "월"
-        let formatter: DateFormatter = DateFormatter()
-        formatter.dateFormat = "MM"
-        let stringifiedMonth: String = formatter.string(from: week)
-        
-        switch stringifiedMonth.hasPrefix("0") {
-        case true:
-            symbol = stringifiedMonth.filter { $0 != "0" } + suffix
-        case false:
-            symbol = stringifiedMonth + suffix
-        }
-        
-        return symbol
+        let stringifiedMonth: String = String(calendar.component(.month, from: month))
+        return stringifiedMonth + suffix
     }
     
     private var startDayOfMonth: Date {
@@ -41,12 +30,11 @@ struct MonthLabel: View {
     
     private var symbolLabel: some View {
         return Text("Day")
+            .frame(maxWidth: .infinity)
             .hidden()
-            .padding([.leading, .trailing], 6)
-            .padding(.top, 10)
             .overlay(
                 Text(symbolOfMonth)
-                    .fontWeight(.semibold)
+                    .font(.system(size: 19)).bold()
             )
     }
     
@@ -56,7 +44,7 @@ struct MonthLabel: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             ForEach(daysOfWeek, id: \.self) { day in
                 if day == startDayOfMonth {
                     symbolLabel
@@ -66,6 +54,7 @@ struct MonthLabel: View {
                 }
             }
         }
+        .padding(.bottom, 10)
     }
 }
 

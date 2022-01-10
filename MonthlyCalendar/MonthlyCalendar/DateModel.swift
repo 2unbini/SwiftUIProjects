@@ -7,14 +7,37 @@
 
 import SwiftUI
 
-class CurrentDayViewModel: ObservableObject {
+class CalendarConfiguration: ObservableObject {
     @Published var stringified: Stringified
-    @Published var interval: DateInterval
+    @Published var calendarInterval: DateInterval
     @Published var initialDateId: Date
     
     let calendar: Calendar
     let formatter: DateFormatter
-    private var today: Date
+    let today: Today
+    
+    struct Today {
+        var date: Date
+        var year: Int
+        var month: Int
+        var day: Int
+        
+        let calendar: Calendar = Calendar(identifier: .gregorian)
+        
+        init() {
+            date = Date()
+            year = calendar.component(.year, from: date)
+            month = calendar.component(.month, from: date)
+            day = calendar.component(.day, from: date)
+        }
+        
+        private mutating func update() {
+            date = Date()
+            year = calendar.component(.year, from: date)
+            month = calendar.component(.month, from: date)
+            day = calendar.component(.day, from: date)
+        }
+    }
     
     struct Stringified {
         var year: String
@@ -23,9 +46,6 @@ class CurrentDayViewModel: ObservableObject {
     }
     
     init() {
-        let year: Int
-        let month: Int
-        let day: Int
         let startDate = DateComponents(year: CalendarYear.start.rawValue, month: 1, day: 1)
         let endDate = DateComponents(year: CalendarYear.end.rawValue, month: 12, day: 31)
         
@@ -33,23 +53,18 @@ class CurrentDayViewModel: ObservableObject {
         formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         
-        today = Date()
+        today = Today()
+        stringified = Stringified(year: String(today.year), month: String(today.month), day: String(today.day))
         
-        year = calendar.component(.year, from: today)
-        month = calendar.component(.month, from: today)
-        day = calendar.component(.day, from: today)
-        
-        stringified = Stringified(year: String(year), month: String(month), day: String(day))
-        
-        interval = DateInterval(start: calendar.date(from: startDate)!, end: calendar.date(from: endDate)!)
+        calendarInterval = DateInterval(start: calendar.date(from: startDate)!, end: calendar.date(from: endDate)!)
         
         // 지금은 '오늘' 날짜로 되어 있음
         // 내가 움직일 날짜 형식(2022-01-31 15:00:00 +0000)으로 바꾸는 것 필요
-        initialDateId = Date()
+        initialDateId = calendar.date(from: DateComponents(year: today.year, month: today.month)) ?? Date()
     }
     
     func updateInterval(with interval: DateInterval) {
-        self.interval = interval
+        self.calendarInterval = interval
     }
     
     // 문자열화 된 현재의 년, 월, 일 업데이트 함수
@@ -60,9 +75,14 @@ class CurrentDayViewModel: ObservableObject {
     }
     
     // 문자열화 된 현재의 년도로 바꾸는 함수
-    func changeYear(with year: Date) {
+    func changeYearString(with year: Date) {
         let updatedYear = calendar.component(.year, from: year)
         
         self.stringified.year = String(updatedYear)
+    }
+    
+    func initializeScrollId(with today: Today) -> Date {
+        let dateComponent = DateComponents(year: today.year, month: today.month)
+        return dateComponent.date!
     }
 }
