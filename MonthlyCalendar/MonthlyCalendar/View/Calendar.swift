@@ -29,7 +29,7 @@ struct CalendarView<DayView> : View where DayView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                // TODO: Fix view constraint crash
+                // TODO: Fix view constraint crash in real Device...
                 CustomBar(presenting: calendarConfig.stringified.year)
                 ScrollViewReader { proxy in
                     ScrollView(.vertical, showsIndicators: false) {
