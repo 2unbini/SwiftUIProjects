@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct MonthView: View {
-    @ObservedObject var calendarConfig: CalendarConfiguration
+    @EnvironmentObject var calendarConfig: CalendarConfiguration
     
     let month: Date
     
-    init(of month: Date, _ calendarConfig: CalendarConfiguration) {
+    init(of month: Date) {
         self.month = month
-        self.calendarConfig = calendarConfig
     }
     
     // 해당 월의 주 배열
@@ -38,7 +37,7 @@ struct MonthView: View {
                             calendarConfig.changeYearString(with: month)
                         }
                 }
-                WeekView(of: weeks[nth], calendarConfig)
+                WeekView(of: weeks[nth])
             }
         }
     }

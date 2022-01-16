@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct YearView: View {
-    @ObservedObject var calendarConfig: CalendarConfiguration
+    @EnvironmentObject var calendarConfig: CalendarConfiguration
     
     let year: Date
     
-    init(of year: Date, _ calendarConfig: CalendarConfiguration) {
+    init(of year: Date) {
         self.year = year
-        self.calendarConfig = calendarConfig
     }
     
     // 해당 년도의 달 배열
@@ -29,7 +28,7 @@ struct YearView: View {
     var body: some View {
         LazyVStack {
             ForEach(months, id: \.self) { month in
-                MonthView(of: month, calendarConfig)
+                MonthView(of: month)
                     .id(month)
             }
         }

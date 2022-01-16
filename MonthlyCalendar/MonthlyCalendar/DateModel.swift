@@ -7,13 +7,28 @@
 
 import SwiftUI
 
+struct Project: Comparable, Hashable, Identifiable {
+    var id = UUID()
+    
+    static func < (lhs: Project, rhs: Project) -> Bool {
+        return lhs.startDate < rhs.startDate
+    }
+    
+    var name: String!
+    var startDate: Date!
+    var endDate: Date!
+}
+
 class CalendarConfiguration: ObservableObject {
     @Published var stringified: Stringified
     @Published var calendarInterval: DateInterval
     @Published var initialDateId: Date
     
+    @Published var projects: [Project]
+    
     let calendar: Calendar
     let today: Today
+    var cellSize: CGSize
     
     struct Today {
         var date: Date
@@ -62,6 +77,12 @@ class CalendarConfiguration: ObservableObject {
         calendarInterval = DateInterval(start: calendar.date(from: startDate)!, end: calendar.date(from: endDate)!)
         
         initialDateId = calendar.date(from: DateComponents(year: today.year, month: today.month)) ?? Date()
+        
+        cellSize = CGSize()
+        projects = [Project(name: "A", startDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 14)), endDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 17))),
+                    Project(name: "B", startDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 15)), endDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 25))),
+                    Project(name: "C", startDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 15)), endDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 16))),
+                    Project(name: "D", startDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 17)), endDate: calendar.date(from: DateComponents(year: 2022, month: 2, day: 28)))]
     }
     
     // 문자열화 된 현재의 년도로 바꾸는 함수

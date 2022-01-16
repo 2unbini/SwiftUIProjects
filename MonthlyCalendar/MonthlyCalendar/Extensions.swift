@@ -46,3 +46,52 @@ extension Calendar {
         return dates
     }
 }
+
+extension Date: Identifiable {
+    public var id: String {
+        description
+    }
+    
+    private var calendar: Calendar {
+        Calendar.current
+    }
+    
+    func getComponent(_ component: Calendar.Component, calendar: Calendar = Calendar.current) -> Int {
+        calendar.component(component, from: self)
+    }
+    
+    var day: Int { self.getComponent(.day) }
+    var month: Int { self.getComponent(.month) }
+    var year: Int { self.getComponent(.year) }
+    var isToday: Bool { calendar.isDateInToday(self)}
+    var isWeekend: Bool { calendar.isDateInWeekend(self)}
+    
+    var midnight: Date {
+        calendar.date(bySettingHour: 0, minute: 0, second: 0, of: self) ?? self
+    }
+    
+    var tomorrowMidnight: Date {
+        calendar.date(byAdding: .day, value: 1, to: midnight) ?? midnight
+    }
+}
+
+extension Date {
+    
+    var date: Date { calendar.date(from: DateComponents(year: self.year, month: self.month, day: self.day)) ?? Date() }
+    
+    func isDateInRange(of project: Project) -> Bool {
+        return project.startDate.date <= self && project.endDate.date >= self
+    }
+
+    func removeUnderHour() -> Date {
+        guard let date = Calendar.current.date(
+            from: Calendar.current.dateComponents(
+                [.year, .month, .day],
+                from: self)
+        ) else {
+            fatalError("Failed to strip time from Date object")
+        }
+        
+        return date
+    }
+}

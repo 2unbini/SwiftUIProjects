@@ -8,11 +8,7 @@
 import SwiftUI
 
 struct CalendarView: View {
-    @ObservedObject var calendarConfig: CalendarConfiguration
-    
-    init(_ calendarConfig: CalendarConfiguration) {
-        self.calendarConfig = calendarConfig
-    }
+    @EnvironmentObject var calendarConfig: CalendarConfiguration
     
     private var years: [Date] {
         return calendarConfig.calendar.generateDates(
@@ -23,23 +19,28 @@ struct CalendarView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                // TODO: Fix view constraint crash in real Device...
-                CustomBar(presenting: calendarConfig.stringified.year)
-                ScrollViewReader { proxy in
-                    ScrollView(.vertical, showsIndicators: false) {
-                        LazyVStack {
-                            ForEach(years, id: \.self) { year in
-                                YearView(of: year, calendarConfig)
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    // TODO: Fix view constraint crash in real Device...
+                    CustomBar(presenting: calendarConfig.stringified.year)
+                    ScrollViewReader { proxy in
+                        ScrollView(.vertical, showsIndicators: false) {
+                            LazyVStack {
+                                ForEach(years, id: \.self) { year in
+                                    YearView(of: year)
+                                }
                             }
+                            .navigationBarHidden(true)
                         }
-                        .navigationBarHidden(true)
+                        .onAppear(perform: {
+                            DispatchQueue.main.async {
+                                calendarConfig.cellSize.width = geometry.size.width / 7
+                                calendarConfig.cellSize.height = calendarConfig.cellSize.width * 1.5
+                                proxy.scrollTo(calendarConfig.initialDateId, anchor: .top)
+                            }
+                            
+                        })
                     }
-                    .onAppear(perform: {
-                        DispatchQueue.main.async {
-                            proxy.scrollTo(calendarConfig.initialDateId, anchor: .top)
-                        }
-                    })
                 }
             }
         }
