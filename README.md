@@ -1,4 +1,4 @@
-# swiftprojects
+# SwiftUI Projects
 
 SUPER SIMPLE PROJECTS TO STUDY SwiftUI
 - Slot game
